@@ -1,7 +1,15 @@
 .header {
+  width: 100%;
   min-height: 74px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   border-bottom: 1px solid #545454;
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .header {
+    min-height: 56px;
+    padding-left: 27px;
+  }
 }
