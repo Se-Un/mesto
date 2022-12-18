@@ -1,0 +1,7 @@
+.header {
+  min-height: 74px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid #545454;
+}
