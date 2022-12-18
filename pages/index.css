@@ -1,0 +1,6 @@
+@import url(../vendor/normalize.css);
+/*подключить normalize.css*/
+@import url(../blocks/common/common.css);
+/*подключить  стили к body*/
+@import url(../blocks/page/page.css);
+/*подключить стили к page*/
