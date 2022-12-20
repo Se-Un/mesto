@@ -1,5 +1,7 @@
 @import url(../vendor/normalize.css);
 /*подключить normalize.css*/
+@import url(../fonts/fonts.css);
+/*подключить шрифт Inter*/
 @import url(../blocks/common/common.css);
 /*подключить  стили к body*/
 @import url(../blocks/page/page.css);
