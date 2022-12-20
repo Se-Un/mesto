@@ -1,0 +1,5 @@
+.profile__description {
+  margin: 0;
+  grid-row: 3;
+  grid-column: span 2;
+}

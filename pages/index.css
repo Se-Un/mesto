@@ -8,3 +8,12 @@
 @import url(../blocks/header/__logo/header__logo.css);
 /*подключить стили к header*/
 @import url(../blocks/main/main.css);
+/*подключить стили к main*/
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__content/profile__content.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__full-name/profile__full-name.css);
+@import url(../blocks/profile/__description/profile__description.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__edit-logo/profile__edit-logo.css);
