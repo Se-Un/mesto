@@ -1,6 +1,25 @@
 .profile__full-name {
-  margin: 0;
-  grid-row: 2;
+  margin: 21px 0 0 0;
+  grid-row: 1;
   grid-column: 1;
   font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+}
+
+@media screen and (min-width: 320px) and (max-width:800px) {
+  .profile__full-name {
+    margin: 0;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .profile__full-name {
+    font-size: 27px;
+    line-height: 33px;
+  }
 }
