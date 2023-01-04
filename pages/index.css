@@ -30,3 +30,6 @@
 @import url(../blocks/element/__button/element__button.css);
 @import url(../blocks/element/__button-logo/element__button-logo.css);
 /*подключить стили к elements*/
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__text/footer__text.css);
+/*подключить стили к footer*/
