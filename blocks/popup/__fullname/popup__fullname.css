@@ -1,0 +1,23 @@
+.popup__fullname {
+  width: 83.26%;
+  margin: 49px auto 0 auto;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.popup__fullname::placeholder {
+  color: #000000;
+}
+
+@media screen and (min-width: 320px) and (max-width: 615px) {
+  .popup__fullname {
+    width: calc(100% - 44px);
+    margin: 75px 0 0 0;
+  }
+}
+
