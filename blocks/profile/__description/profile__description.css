@@ -13,14 +13,15 @@
   color: #FFFFFF;
 }
 
-@media screen and (min-width: 320px) and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .profile__description {
     margin: 9px 0 0 16px;
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 425px) {
+@media screen and (max-width: 425px) {
   .profile__description {
+    max-width: 220px;
     font-size: 14px;
     line-height: 17px;
   }
