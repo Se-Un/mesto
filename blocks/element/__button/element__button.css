@@ -11,5 +11,4 @@
   opacity: 0.5;
   transition: opacity 0.3s;
   cursor: url(../../../images/logo/pointer.png) 1 2, pointer;
-  transition: cursor 0.3s;
 }
