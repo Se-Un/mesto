@@ -36,41 +36,15 @@
 
               <p class="profile__description">Исследователь океана</p>
 
-              <button class="profile__edit-button" name="edit-button" type="button">
-                <img class="profile__edit-logo" src="images/logo/Vector.svg" alt="тут была картинка">
+              <button class="profile__edit-button" name="edit-button" type="button" aria-label="Редактировать">
               </button>
 
             </div>
 
           </div>
 
-          <button class="profile__add-button">
-            <img class="profile__add-logo" src="images/logo/plus.svg" alt="тут была картинка">
+          <button class="profile__add-button" name="add-button" type="button" aria-label="Добавить">
           </button>
-
-        </section>
-
-        <section class="popup">
-
-          <div class="popup__container">
-
-            <button class="popup__button-close">
-              <img class="popup__button-logo" src="images/logo/close.png" alt="тут была картинка">
-            </button>
-
-            <form class="popup__form" action="blocks/popup/popup.js">
-
-              <h2 class="popup__title">Редактировать профиль</h2>
-
-              <input class="popup__fullname" type="text" placeholder="Жак-Ив Кусто">
-              <div class="popup__line"></div>
-              <input class="popup__description" type="text" placeholder="Исследователь океана">
-              <div class="popup__line"></div>
-              <button class="popup__button-save">Сохранить</button>
-
-            </form>
-            
-          </div>
 
         </section>
 
@@ -83,7 +57,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Карачаевск</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -97,7 +71,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -111,7 +85,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Домбай</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -125,7 +99,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Камень в пустыне</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -138,7 +112,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Хвойный Лес</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -151,7 +125,7 @@
             <div class="element__content">
 
               <h2 class="element__title">Звездное небо</h2>
-              <button class="element__button element__button_active"><img class="element__button-logo" src="images/logo/Group.svg" alt="тут была картинка">
+              <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
               </button>
 
             </div>
@@ -166,6 +140,28 @@
         <p class="footer__text">&#169; 2020 Mesto Russia</p>
       </footer>
 
+      <div class="popup">
+
+        <div class="popup__container">
+
+          <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть">
+          </button>
+
+          <form class="popup__form" name="form" action="blocks/popup/popup.js" method="get">
+
+            <h2 class="popup__title">Редактировать профиль</h2>
+
+            <input class="popup__input popup__input_value_name" name="name" type="text">
+
+            <input class="popup__input popup__input_value_job" name="job" type="text">
+
+            <button class="popup__submit" name="submit" type="submit">Сохранить</button>
+
+          </form>
+          
+        </div>
+
+      </div>
     </div>
 
     <script src="scripts/index.js"></script>

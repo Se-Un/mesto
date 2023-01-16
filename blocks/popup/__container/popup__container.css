@@ -1,9 +1,7 @@
 .popup__container {
   max-width: 430px;
   width: 88%;
-  position: absolute;
-  top: 27%;
-  left: 33.2%;
+  position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;

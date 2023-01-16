@@ -10,13 +10,16 @@
   border: 1px solid #FFFFFF;
   grid-row: 1;
   grid-column: 2;
+  background-image: url(../../../images/logo/Vector.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: #000000;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
   transition: opacity 0.3s;
-  cursor: url(../../../images/logo/pointer.png) 1 2, pointer;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 320px) and (max-width: 800px) {
