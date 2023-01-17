@@ -9,6 +9,13 @@
   align-items: center;
 }
 
+@media screen and (max-width: 425px) {
+  .popup {
+    align-items: flex-start;
+    padding-top: 123px;
+  }
+}
+
 .popup::before {
   content: ' ';
   width: 100%;

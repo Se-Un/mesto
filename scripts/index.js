@@ -9,10 +9,6 @@ let buttonClose = popup.querySelector('.popup__button-close');
 let formElement = popup.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_value_name');
 let jobInput = formElement.querySelector('.popup__input_value_job');
-/*прослушивать события*/
-editButton.addEventListener('click', callPopup);
-buttonClose.addEventListener('click', closePopup);
-formElement.addEventListener('submit', handleFormSubmit);
 /*воспроизвести функцию открытия popup */
 function callPopup() {
     popup.classList.add('popup_opened');
@@ -31,3 +27,7 @@ function handleFormSubmit(evt) {
   fullName.textContent = nameInput.value;
   profileDesc.textContent = jobInput.value;
 }
+/*прослушивать события*/
+editButton.addEventListener('click', callPopup);
+buttonClose.addEventListener('click', closePopup);
+formElement.addEventListener('submit', handleFormSubmit);
