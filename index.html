@@ -51,14 +51,8 @@
         <section class="elements">
 
         </section>
-        
-      </main>
-      
-      <footer class="footer">
-        <p class="footer__text">&#169; 2020 Mesto Russia</p>
-      </footer>
-      
-        <div class="popup">
+
+        <div class="popup popup__profile">
 
           <div class="popup__container">
   
@@ -69,9 +63,9 @@
   
               <h2 class="popup__title">Редактировать профиль</h2>
   
-              <input class="popup__input popup__input_value_name" name="name" type="text" placeholder="Введите Ваше имя" required>
+              <input class="popup__input" name="name" type="text" placeholder="Введите Ваше имя" required>
   
-              <input class="popup__input popup__input_value_job" name="job" type="text" placeholder="Укажите Вашу деятельность" required>
+              <input class="popup__input" name="job" type="text" placeholder="Укажите Вашу деятельность" required>
   
               <button class="popup__submit" name="submit" type="submit">Сохранить</button>
   
@@ -81,20 +75,20 @@
 
         </div>
 
-        <div class="popup">
+        <div class="popup popup__element">
 
           <div class="popup__container">
   
-            <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть">
+            <button class="popup__button-close" name="button" type="button" aria-label="Закрыть">
             </button>
   
-            <form class="popup__form" name="form" action="blocks/popup/popup.js" method="get">
+            <form class="popup__form" name="formCard" action="blocks/popup/popup.js" method="get">
   
               <h2 class="popup__title">Новое место</h2>
   
-              <input class="popup__input popup__input_value_name" name="name" type="text" placeholder="Введите Ваше имя" required>
+              <input class="popup__input" name="title" type="text" placeholder="Название" required>
   
-              <input class="popup__input popup__input_value_job" name="job" type="text" placeholder="Укажите Вашу деятельность" required>
+              <input class="popup__input" name="link" type="text" placeholder="Ссылка на картинку" required>
   
               <button class="popup__submit" name="submit" type="submit">Создать</button>
   
@@ -103,26 +97,50 @@
           </div>
 
         </div>
-      
-    </div>
 
-    <template id="element-template">
+        <div class="popup popup__scale-picture popup_opacity">
+          <div class="popup__container popup__container_image">
+  
+            <button class="popup__button-close popup__button-close_position_top" name="button" type="button" aria-label="Закрыть">
+            </button>
 
-      <article class="element">
+            <figure class="popup__content">
 
-        <img class="element__image" alt="тут была картинка">
+              <img class="popup__image">
+              <figcaption class="popup__caption"></figcaption>
 
-        <div class="element__content">
-
-          <h2 class="element__title"></h2>
-          <button class="element__button element__button_active" name="like-btn" type="button" aria-label="Нравится">
-          </button>
-
+            </figure>
+            
+          </div>
         </div>
 
-      </article>
+        <template class="element-template" id="element-template">
 
-    </template>
+          <article class="element">
+
+            <button class="element__delete" name="delete-btn" type="button" aria-label="Удалить"></button>
+            
+            <img class="element__image">
+    
+            <div class="element__content">
+    
+              <h2 class="element__title"></h2>
+              <button class="element__button" name="like-btn" type="button" aria-label="Нравится">
+              </button>
+    
+            </div>
+    
+          </article>
+    
+        </template>
+        
+      </main>
+      
+      <footer class="footer">
+        <p class="footer__text">&#169; 2020 Mesto Russia</p>
+      </footer>
+
+    </div>
 
     <script src="scripts/index.js"></script>
   </body>
