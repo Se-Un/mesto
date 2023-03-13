@@ -10,17 +10,17 @@ const elements = document.querySelector('.elements');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 const btnClose = document.querySelectorAll('.popup__button-close');
 /*получить элементы popup для изменения блока profile*/
-const popupProfile = document.querySelector('.popup__profile');
+const popupProfile = document.querySelector('.popup-profile');
 const formProfile = popupProfile.querySelector('.popup__form');
 const inputName = popupProfile.querySelector('[name="name"]');
 const inputJob = popupProfile.querySelector('[name="job"]');
 /*получить элементы popup для редактирования карточек фото*/
-const popupElement = document.querySelector('.popup__element');
+const popupElement = document.querySelector('.popup-element');
 const formElement = popupElement.querySelector('.popup__form');
 const inputTitle = popupElement.querySelector('[name="title"]');
 const inputLink = popupElement.querySelector('[name="link"]');
 
-const popupScalePicture = document.querySelector('.popup__scale-picture');
+const popupScalePicture = document.querySelector('.popup-scale-picture');
 const imagePopup = popupScalePicture.querySelector('.popup__image');
 const captionPopup = popupScalePicture.querySelector('.popup__caption');
 /*получить доступ к элементам блока template*/
