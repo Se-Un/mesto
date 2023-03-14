@@ -8,17 +8,17 @@ const addBtn = document.querySelector('.profile__add-button');
 const elements = document.querySelector('.elements');
 /*получить общие элементы popup*/
 const popupList = Array.from(document.querySelectorAll('.popup'));
-const btnClose = document.querySelectorAll('.popup__button-close');
+const closeBtns = document.querySelectorAll('.popup__button-close');
 /*получить элементы popup для изменения блока profile*/
-const popupProfile = document.querySelector('.popup-profile');
-const formProfile = popupProfile.querySelector('.popup__form');
-const inputName = popupProfile.querySelector('[name="name"]');
-const inputJob = popupProfile.querySelector('[name="job"]');
+const profilePopup = document.querySelector('.popup-profile');
+const profileForm = document.forms['profile-form'];
+const inputName = profilePopup.querySelector('[name="name"]');
+const inputJob = profilePopup.querySelector('[name="job"]');
 /*получить элементы popup для редактирования карточек фото*/
-const popupElement = document.querySelector('.popup-element');
-const formElement = popupElement.querySelector('.popup__form');
-const inputTitle = popupElement.querySelector('[name="title"]');
-const inputLink = popupElement.querySelector('[name="link"]');
+const cardPopup = document.querySelector('.popup-element');
+const cardForm = document.forms['card-form'];
+const inputTitle = cardPopup.querySelector('[name="title"]');
+const inputLink = cardPopup.querySelector('[name="link"]');
 
 const popupScalePicture = document.querySelector('.popup-scale-picture');
 const imagePopup = popupScalePicture.querySelector('.popup__image');
@@ -73,41 +73,43 @@ const createCard = (name, link) => {
     removeCard.remove();
   }
   /*создать функцию лайка карточки */
-  const changeClassLikeBtn = () => {
+  const toggleLike = () => {
     /*менять класс кнопки при нажатии, метод toggle */
     likeBtn.classList.toggle('element__button_active');
   }
   /*прослушивать события кнопки "удалить" */
   deleteBtn.addEventListener('click', deleteCard);
   /*прослушивать события кнопки "нравится" */
-  likeBtn.addEventListener('click', changeClassLikeBtn);
+  likeBtn.addEventListener('click', toggleLike);
   /*прослушивать событя при нажатии на картинку */
-  image.addEventListener('click', () => scale(name, link));
+  image.addEventListener('click', () => openImagePopup(name, link));
   /*вернуть значение чтобы функция выполнялась */
   return templateElement;
 }
 /*создать функцию добавления карточек из исходного массива по порядку массива */
-const addCard = (element) => {
+const appendCard = (element) => {
   /*использовать метод append */
   elements.append(element);
 }
 /*создать функцию добавления карточки при отправке формы в начало блока */
-const submitCard = (element) => {
+const prependCard = (element) => {
   /*использовать метод prepend */
   elements.prepend(element);
 }
 /*создать функцию для вывода карточек из первоначального массива */
-const exampleCards = (array) => {
+const renderCards = (array) => {
   /*метод перебора массива по параметру*/
   array.forEach(({name, link}) => {
     /*использовать функцию добавления и создания карточки */
-    addCard(createCard(name, link));
+    appendCard(createCard(name, link));
   })
 }
 /*создать функцию увеличения картинки */
-const scale = (name, link) => {
+const openImagePopup = (name, link) => {
   /*подставить значение в атрибут src */
   imagePopup.src = link;
+  /*подставить значение в атрибут alt*/
+  imagePopup.alt = name;
   /*подставить значение в подпись к картинке */
   captionPopup.textContent = name;
   /*использовать функцию открытия попапа */
@@ -125,44 +127,46 @@ const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 }
 /*создать функцию отправки формы и изменения данных в блоке Profile*/
-const submitFormProfile = (evt) => {
+const submitProfileForm = (evt) => {
   /*функция события для обработки отправки формы */
   evt.preventDefault();
   /*подставить значения в соответсвующие разделы*/
   fullName.textContent = inputName.value;
   activity.textContent = inputJob.value;
   /*использовать функцию закрытия popup */
-  closePopup(popupProfile);
+  closePopup(profilePopup);
+  inputName.value = fullName.textContent;
+  inputJob.value = activity.textContent;
 }
 /*создать функцию отправки формы и создания карточки в блоке Elements */
-const submitFormElement = (evt) => {
+const submitCardForm = (evt) => {
   /*функция события для обработки отправки формы */
   evt.preventDefault();
   /*создать константы в которых будут хранится значения полей из input */
   const name = inputTitle.value;
   const link = inputLink.value;
   /*использовать функции добавления карточки в начало и создания функции */
-  submitCard(createCard(name, link));
+  prependCard(createCard(name, link));
   /*использовать функцию закрытия popup */
-  closePopup(popupElement);
+  closePopup(cardPopup);
+  inputTitle.value = '';
+  inputLink.value = '';
 }
+
 /*вызвать функцию вывода карточек с заданным массивом */
-exampleCards(initialCards);
+renderCards(initialCards);
 /*прослушивать форму отправки данных блока Profile*/
-formProfile.addEventListener('submit', submitFormProfile);
+profileForm.addEventListener('submit', submitProfileForm);
 /*прослушивать событие отправки формы formElement */
-formElement.addEventListener('submit', submitFormElement);
+cardForm.addEventListener('submit', submitCardForm);
 /*прослушивать события для открытия попапа Profile*/
 editBtn.addEventListener('click', () =>{
-  inputName.value = fullName.textContent;
-  inputJob.value = activity.textContent;
-  openPopup(popupProfile);
+  
+  openPopup(profilePopup);
 });
 /*прослушивать событие для открытия попапа Element*/
 addBtn.addEventListener('click', () => {
-  inputTitle.value = '';
-  inputLink.value = '';
-  openPopup(popupElement);
+  openPopup(cardPopup);
 });
 /*перебираем попапы на странице*/
 popupList.forEach((popup) => {
