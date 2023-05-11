@@ -1,6 +1,5 @@
 .popup__form {
   max-width: 430px;
-  min-height: 330px;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
