@@ -1,0 +1,7 @@
+.popup__input_validity_invalid {
+  border-bottom: 1px solid #FF0000;
+}
+
+.popup__input_validity_invalid:last-of-type {
+  margin: 13px auto 0 auto;
+}
