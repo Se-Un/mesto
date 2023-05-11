@@ -1,0 +1,3 @@
+[submodule "mesto"]
+path = mesto
+url = https://github.com/Se-Un/mesto.git
