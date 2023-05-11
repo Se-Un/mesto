@@ -1,5 +1,5 @@
 .element {
-  min-width: 282px;
+  width: 282px;
   min-height: 361px;
   position: relative;
   display: flex;
@@ -13,6 +13,5 @@
 @media screen and (max-width: 1279px) {
   .element {
     justify-self: center;
-    max-width: 282px;
   }
 }
