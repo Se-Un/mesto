@@ -1,4 +1,9 @@
 'use strict'
+//получить данные массива из другого файла
+import { initialCards } from "./constants.js";
+import { disableBtnSubmit } from "./validate.js";
+import { enableBtnSubmit } from "./validate.js";
+import { config } from "./constants.js";
 /*получить элементы блока profile*/
 const fullName = document.querySelector('.profile__full-name');
 const activity = document.querySelector('.profile__description');
@@ -8,60 +13,33 @@ const addBtn = document.querySelector('.profile__add-button');
 const elements = document.querySelector('.elements');
 /*получить общие элементы popup*/
 const popupList = Array.from(document.querySelectorAll('.popup'));
-const closeBtns = document.querySelectorAll('.popup__button-close');
 /*получить элементы popup для изменения блока profile*/
 const profilePopup = document.querySelector('.popup-profile');
 const profileForm = document.forms['profile-form'];
 const inputName = profilePopup.querySelector('[name="name"]');
 const inputJob = profilePopup.querySelector('[name="job"]');
-const submitProfile = profilePopup.querySelector('.popup__submit');
+const submitBtnProfile = profilePopup.querySelector('.submit-profile');
 /*получить элементы popup для редактирования карточек фото*/
 const cardPopup = document.querySelector('.popup-element');
 const cardForm = document.forms['card-form'];
 const inputTitle = cardPopup.querySelector('[name="title"]');
 const inputLink = cardPopup.querySelector('[name="link"]');
+const submitBtnCard = cardPopup.querySelector('.submit-card');
 
 const popupScalePicture = document.querySelector('.popup-scale-picture');
 const imagePopup = popupScalePicture.querySelector('.popup__image');
 const captionPopup = popupScalePicture.querySelector('.popup__caption');
 /*получить доступ к элементам блока template*/
 const template = document.querySelector('.element-template').content;
-/*массив данных для карточек фото*/
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 /*создать функцию вывода карточки в блок elements */
 const createCard = (name, link) => {
   /*вывести в переменные елементы блока template через метод cloneNode */
-  const templateElement = template.querySelector('.element').cloneNode(true);
-  const image = templateElement.querySelector('.element__image');
-  const deleteBtn = templateElement.querySelector('.element__delete');
-  const likeBtn = templateElement.querySelector('.element__button');
+  const newCard = template.querySelector('.element').cloneNode(true);
+  const image = newCard.querySelector('.element__image');
+  const deleteBtn = newCard.querySelector('.element__delete');
+  const likeBtn = newCard.querySelector('.element__button');
   /*присвоим параметр заголовку карточки, чтобы вставлять необходимые значения*/
-  templateElement.querySelector('.element__title').textContent = name;
+  newCard.querySelector('.element__title').textContent = name;
   /*присвоим параметр атрибуту src */
   image.src = link;
   /*присвоим параметр атрибуту alt */
@@ -85,7 +63,7 @@ const createCard = (name, link) => {
   /*прослушивать событя при нажатии на картинку */
   image.addEventListener('click', () => openImagePopup(name, link));
   /*вернуть значение чтобы функция выполнялась */
-  return templateElement;
+  return newCard;
 }
 /*создать функцию добавления карточек из исходного массива по порядку массива */
 const appendCard = (element) => {
@@ -121,14 +99,14 @@ const openPopup = (popup) => {
   /*добавить класс элементу popup */
   popup.classList.add('popup_opened');
   /*добавить обработчик события закрытия попапа по кнопке esc */
-  document.addEventListener('keydown', closeEsc);
+  document.addEventListener('keydown', closePopupByEsc);
 }
 /*создать функцю закрытия попапов*/
 const closePopup = (popup) => {
   /*удалить класс элемента popup */
   popup.classList.remove('popup_opened');
   /*убрать обработчик события */
-  document.removeEventListener('keydown', closeEsc);
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 /*создать функцию отправки формы и изменения данных в блоке Profile*/
 const submitProfileForm = (evt) => {
@@ -152,29 +130,33 @@ const submitCardForm = (evt) => {
   /*использовать функцию закрытия popup */
   closePopup(cardPopup);
   cardForm.reset();
+  enableBtnSubmit(submitBtnCard, config);
+  
 }
 /*создать функцию закрытия попапов по клику на оверлей */
-const closeOverlay = (popup) => {
+const closePopupByOverlay = (popup) => {
   /*прослушиваем событя клика в пределах открытого попапа */
   popup.addEventListener('click', (event) => {
-    /*создать константу в которую будут делегироваться события с классами */
-    const clickList = event.target.classList;
     /*создать условие что класс должен быть popup_opened */
-    if(clickList.contains('popup_opened')) {
+    if(event.target.classList.contains('popup_opened')) {
       /*вызвать функцию закрытия попапа */
       closePopup(popup);
     }
   })
 }
 /*создать функцию закрытия попапа по клипку на кнопку  esc */
-const closeEsc = (evt) => {
-  // пройти по массиву попапа
-  popupList.forEach((popup) =>{
-    // при условии что событие клика нажатия кнопки esc, закрыть попап
+const closePopupByEsc = (evt) => {
+    // при условии что событие клика нажатия кнопки esc
     if(evt.key == 'Escape') {
-   closePopup(popup);
- } 
-  })
+      //перебираем попапы на странице
+      popupList.forEach((popup) => {
+        // условие если класс у попапа присутствует то закрываем его
+        if(popup.classList.contains('popup_opened')) {
+          closePopup(popup);
+        }
+        
+      })
+    }
 };
 /*вызвать функцию вывода карточек с заданным массивом */
 renderCards(initialCards);
@@ -186,11 +168,12 @@ cardForm.addEventListener('submit', submitCardForm);
 editBtn.addEventListener('click', () =>{
   inputName.value = fullName.textContent;
   inputJob.value = activity.textContent;
-  submitProfile.classList.remove('popup__submit_inactive');
+  disableBtnSubmit(submitBtnProfile, config);
   openPopup(profilePopup);
 });
  /*прослушивать событие для открытия попапа Element*/
 addBtn.addEventListener('click', () => {
+  submitBtnCard.classList.remove('popup__submit_inactive');
   openPopup(cardPopup);
 });
 /*перебираем попапы на странице*/
@@ -205,23 +188,5 @@ popupList.forEach((popup) => {
       closePopup(popup);
     }
   });
-  closeOverlay(popup);
+  closePopupByOverlay(popup);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

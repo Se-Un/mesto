@@ -12,7 +12,12 @@
   text-align: center;
   color: #ffffff;
 }
-
+.popup__submit:disabled {
+  opacity: 0.2;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
 .popup__submit:hover {
   opacity: 0.8;
   transition: opacity 0.3s;
