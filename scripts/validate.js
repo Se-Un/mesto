@@ -100,7 +100,6 @@ export const enableValidation = (config) => {
       setEventListener(formElement, config);
   });
 };
-/* вызываем функцию обработчик всех форм*/
-// присваиваем объекту данные массива
+
 
 
