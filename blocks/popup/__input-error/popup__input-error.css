@@ -1,11 +1,7 @@
 .popup__input-error {
-<<<<<<< HEAD
-  
-=======
   display: block;
   min-height: 30px;
   margin: 5px auto 0 auto;
->>>>>>> delevop
   opacity: 0;
   font-size: 12px;
   font-style: normal;
