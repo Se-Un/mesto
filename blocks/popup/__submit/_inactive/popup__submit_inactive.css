@@ -1,5 +1,4 @@
 .popup__submit_inactive {
-  margin: 13px auto 37px auto;
   pointer-events: none;
   opacity: 0.2;
   background-color: #ffffff;

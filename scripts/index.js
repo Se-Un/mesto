@@ -1,9 +1,9 @@
 'use strict'
 //получить данные массива из другого файла
-import { initialCards } from "./constants.js";
-import { disableBtnSubmit } from "./validate.js";
-import { enableBtnSubmit } from "./validate.js";
-import { config } from "./constants.js";
+import * as constants from './constants.js';
+import { enableBtnSubmit } from './validate.js';
+import { disableBtnSubmit } from './validate.js';
+import { enableValidation } from './validate.js';
 /*получить элементы блока profile*/
 const fullName = document.querySelector('.profile__full-name');
 const activity = document.querySelector('.profile__description');
@@ -130,7 +130,7 @@ const submitCardForm = (evt) => {
   /*использовать функцию закрытия popup */
   closePopup(cardPopup);
   cardForm.reset();
-  enableBtnSubmit(submitBtnCard, config);
+  disableBtnSubmit(submitBtnCard, constants.config);
   
 }
 /*создать функцию закрытия попапов по клику на оверлей */
@@ -148,18 +148,14 @@ const closePopupByOverlay = (popup) => {
 const closePopupByEsc = (evt) => {
     // при условии что событие клика нажатия кнопки esc
     if(evt.key == 'Escape') {
-      //перебираем попапы на странице
-      popupList.forEach((popup) => {
-        // условие если класс у попапа присутствует то закрываем его
-        if(popup.classList.contains('popup_opened')) {
-          closePopup(popup);
+      // закрыть попап с соответствующим классом
+          closePopup(document.querySelector('.popup_opened'));
         }
-        
-      })
-    }
 };
 /*вызвать функцию вывода карточек с заданным массивом */
-renderCards(initialCards);
+renderCards(constants.initialCards);
+// вызвать функцию валидации
+enableValidation(constants.config);
 /*прослушивать форму отправки данных блока Profile*/
 profileForm.addEventListener('submit', submitProfileForm);
 /*прослушивать событие отправки формы formElement */
@@ -168,12 +164,11 @@ cardForm.addEventListener('submit', submitCardForm);
 editBtn.addEventListener('click', () =>{
   inputName.value = fullName.textContent;
   inputJob.value = activity.textContent;
-  disableBtnSubmit(submitBtnProfile, config);
+  enableBtnSubmit(submitBtnProfile, constants.config);
   openPopup(profilePopup);
 });
  /*прослушивать событие для открытия попапа Element*/
 addBtn.addEventListener('click', () => {
-  submitBtnCard.classList.remove('popup__submit_inactive');
   openPopup(cardPopup);
 });
 /*перебираем попапы на странице*/

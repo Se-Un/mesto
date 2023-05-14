@@ -1,5 +1,4 @@
 'use strict'
-import { config } from "./constants.js";
 /*создать функцию для показа ошибок */
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   /*создать константу для вывода ошибки */
@@ -61,14 +60,14 @@ const invalidInput = (inputList) => {
   });
 };
 //создать функцию для активации кнопки сабмита
-export const enableBtnSubmit = (buttonElement, config) => {
+export const disableBtnSubmit = (buttonElement, config) => {
   //добавить сабмиту класс
   buttonElement.classList.add(config.inactiveButtonClass);
   //добавить сабмиту атрибут
   buttonElement.setAttribute('disabled', 'disabled');
 };
 //создать функцию для дизейбла кнопки сабмита
-export const disableBtnSubmit = (buttonElement, config) => {
+export const enableBtnSubmit = (buttonElement, config) => {
   //удалить класс
   buttonElement.classList.remove(config.inactiveButtonClass);
   //удалить атрибут
@@ -78,15 +77,15 @@ export const disableBtnSubmit = (buttonElement, config) => {
 const toggleButtonState = (inputList, buttonElement, config) => {
   /*создать условную конструкцию, если есть невалидный инпут, то задизейблить кнопку*/
   if(invalidInput(inputList)) {
-    enableBtnSubmit(buttonElement, config);
+    disableBtnSubmit(buttonElement, config);
   }
   /* если форма прошла валидацию, то активировать кнопку*/
   else {
-    disableBtnSubmit(buttonElement, config);
+    enableBtnSubmit(buttonElement, config);
   }
 };
 // создать функцию обработчик всеф форм
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   /*получаем массив форм на странице */
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   /*проходим по массиву методом forEach */
@@ -103,5 +102,5 @@ const enableValidation = (config) => {
 };
 /* вызываем функцию обработчик всех форм*/
 // присваиваем объекту данные массива
-enableValidation(config);
+
 
