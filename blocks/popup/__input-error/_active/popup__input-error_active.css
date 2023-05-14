@@ -1,8 +1,5 @@
 .popup__input-error_active {
-  display: block;
-  min-height: 30px;
   width: 83.26%;
-  margin: 5px auto 0 auto;
   opacity: 1;
   color: #FF0000;
 }

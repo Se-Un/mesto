@@ -1,5 +1,4 @@
 'use strict'
-import { config } from "./constants.js";
 /*создать функцию для показа ошибок */
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   /*создать константу для вывода ошибки */
