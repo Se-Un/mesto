@@ -2,9 +2,7 @@
 // импорт модулей
 import * as constants from './constants.js';
 import * as Card from './Card.js';
-import { enableBtnSubmit } from './validate.js';
-import { disableBtnSubmit } from './validate.js';
-import { enableValidation } from './validate.js';
+import * as Form from './FormValidator.js';
 // получить элементы блока profile
 const fullName = document.querySelector('.profile__full-name');
 const activity = document.querySelector('.profile__description');
@@ -99,7 +97,6 @@ const submitCardForm = (evt) => {
   //использовать функцию закрытия popup 
   closePopup(cardPopup);
   cardForm.reset();
-  disableBtnSubmit(submitBtnCard, constants.config);
   
 }
 // создать функцию закрытия попапов по клику на оверлей 
@@ -121,10 +118,13 @@ const closePopupByEsc = (evt) => {
           closePopup(document.querySelector('.popup_opened'));
         }
 };
+// создать функцию валидации
+const enableValidation = (popup) => {
+  const validate = new Form.FormValidator(constants.config, popup);
+  validate.enableValidation();
+};
 // вызвать функцию вывода карточек с заданным массивом 
 renderCards(constants.initialCards);
-// вызвать функцию валидации
-enableValidation(constants.config);
 // прослушивать форму отправки данных блока Profile
 profileForm.addEventListener('submit', submitProfileForm);
 // прослушивать событие отправки формы formElement
@@ -133,12 +133,15 @@ cardForm.addEventListener('submit', submitCardForm);
 editBtn.addEventListener('click', () =>{
   inputName.value = fullName.textContent;
   inputJob.value = activity.textContent;
-  enableBtnSubmit(submitBtnProfile, constants.config);
   openPopup(profilePopup);
+  // вызвать функцию валидации при открытии попапа
+  enableValidation(profilePopup);
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {
   openPopup(cardPopup);
+  // вызвать функцию валидации при открытии попапа
+  enableValidation(cardPopup);
 });
 // перебираем попапы на странице
 popupList.forEach((popup) => {
@@ -152,5 +155,6 @@ popupList.forEach((popup) => {
       closePopup(popup);
     }
   });
+  
   closePopupByOverlay(popup);
 });

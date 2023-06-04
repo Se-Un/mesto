@@ -11,7 +11,7 @@ export class Card {
     
   }
   // создать метод получения темплейт элементов
-  _getTemplate() {
+  #getTemplate() {
     const cardElement = document
     .querySelector(this._templateSelector)
     .content
@@ -21,24 +21,24 @@ export class Card {
     return cardElement;
   }
   // создать метод удаления карточки
-  _deleteCard()  {
+  #deleteCard()  {
     this._element.remove();
   }
   // создать метод изменения класса кнопки лайка
-  _toggleLike() {
+  #toggleLike() {
     /*менять класс кнопки при нажатии, метод toggle */
     this._element.querySelector('.element__button').classList.toggle('element__button_active');
   }
   // создать метод прослушивания событий в карточке
-  _setEventListeners() {
-    this.element = this._getTemplate();
+  #setEventListeners() {
+    this.element = this.#getTemplate();
     // прослушивать события по кнопке удалить
     this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._deleteCard();
+      this.#deleteCard();
     });
     /*прослушивать события кнопки "нравится" */
     this._element.querySelector('.element__button').addEventListener('click', () => {
-      this._toggleLike();
+      this.#toggleLike();
     });
     /*прослушивать событя при клике на картинку */
     this._element.querySelector('.element__image').addEventListener('click', () => {
@@ -47,9 +47,9 @@ export class Card {
   }
   // создать функцию воспроизведения карты со всеми методами
   generateCard() {
-    this._element = this._getTemplate();
+    this._element = this.#getTemplate();
 
-    this._setEventListeners();
+    this.#setEventListeners();
 
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
