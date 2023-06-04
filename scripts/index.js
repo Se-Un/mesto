@@ -17,13 +17,11 @@ const profilePopup = document.querySelector('.popup-profile');
 const profileForm = document.forms['profile-form'];
 const inputName = profilePopup.querySelector('[name="name"]');
 const inputJob = profilePopup.querySelector('[name="job"]');
-const submitBtnProfile = profilePopup.querySelector('.submit-profile');
 // получить элементы popup для редактирования карточек фото
 const cardPopup = document.querySelector('.popup-element');
 const cardForm = document.forms['card-form'];
 const inputTitle = cardPopup.querySelector('[name="title"]');
 const inputLink = cardPopup.querySelector('[name="link"]');
-const submitBtnCard = cardPopup.querySelector('.submit-card');
 // получить элементы попапа увеличения картинки
 const popupScalePicture = document.querySelector('.popup-scale-picture');
 const imagePopup = popupScalePicture.querySelector('.popup__image');
