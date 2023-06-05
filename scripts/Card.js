@@ -1,12 +1,11 @@
 'use strict'
-// импортировать функцию масштабирования картинки
-import { openImagePopup } from './index.js';
 // создать класс карточки
 export class Card {
   // создать конструктор класса с необходимыми свойствами
-  constructor(object, templateSelector) {
+  constructor(object, openImagePopup, templateSelector) {
     this._name = object.name;
     this._link = object.link;
+    this._openImagePopup = openImagePopup;
     this._templateSelector = templateSelector;
   }
   // создать метод получения темплейт элементов
@@ -41,7 +40,7 @@ export class Card {
     });
     // прослушивать событя при клике на картинку 
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      openImagePopup(this._name, this._link);
+      this._openImagePopup(this._name, this._link);
     })
   }
   // создать функцию воспроизведения карты со всеми методами

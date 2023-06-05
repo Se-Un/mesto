@@ -39,13 +39,13 @@ const prependCard = (element) => {
 // создать функцию для вывода карточек из первоначального массива 
 const renderCards = (array) => {
   array.forEach((item) => {
-   const card = new Card.Card(item, '.element-template');
+   const card = new Card.Card(item, openImagePopup, '.element-template');
    const cardElement = card.generateCard();
    appendCard(cardElement);
  })
 }
 // создать функцию увеличения картинки
-export const openImagePopup = (name, link) => {
+const openImagePopup = (name, link) => {
   // подставить значение в атрибут src 
   imagePopup.src = link;
   // подставить значение в атрибут alt
