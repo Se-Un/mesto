@@ -1,8 +1,9 @@
 'use strict'
 // импорт модулей
-import * as constants from './constants.js';
-import * as Card from './Card.js';
-import * as Form from './FormValidator.js';
+import { initialCards } from './constants.js';
+import { config } from './constants.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 // получить элементы блока profile
 const fullName = document.querySelector('.profile__full-name');
 const activity = document.querySelector('.profile__description');
@@ -26,6 +27,11 @@ const inputLink = cardPopup.querySelector('[name="link"]');
 const popupScalePicture = document.querySelector('.popup-scale-picture');
 const imagePopup = popupScalePicture.querySelector('.popup__image');
 const captionPopup = popupScalePicture.querySelector('.popup__caption');
+// создать функцию создания и вывода карты на страницу
+const createCard = (item) => {
+  const card = new Card(item, openImagePopup, '.element-template');
+  return card.generateCard();
+}
 // создать функцию добавления карточек из исходного массива по порядку массива 
 const appendCard = (element) => {
   // использовать метод append 
@@ -39,9 +45,7 @@ const prependCard = (element) => {
 // создать функцию для вывода карточек из первоначального массива 
 const renderCards = (array) => {
   array.forEach((item) => {
-   const card = new Card.Card(item, openImagePopup, '.element-template');
-   const cardElement = card.generateCard();
-   appendCard(cardElement);
+   appendCard(createCard(item));
  })
 }
 // создать функцию увеличения картинки
@@ -86,12 +90,8 @@ const submitCardForm = (evt) => {
   // создать константы в которых будут хранится значения полей из input 
   const name = inputTitle.value;
   const link = inputLink.value;
-  // создать экземпляр карты
-  const card = new Card.Card({name, link}, '.element-template');
-  // создать вызов карты и воспроизвести ее на странице с данными пользователя
-  const cardElement = card.generateCard();
   // использовать функции добавления карточки в начало и создания функции 
-  prependCard(cardElement);
+  prependCard(createCard({name, link}));
   //использовать функцию закрытия popup 
   closePopup(cardPopup);
   cardForm.reset();
@@ -115,14 +115,28 @@ const closePopupByEsc = (evt) => {
       // закрыть попап с соответствующим классом
           closePopup(document.querySelector('.popup_opened'));
         }
-};
-// создать функцию валидации
-const enableValidation = (popup) => {
-  const validate = new Form.FormValidator(constants.config, popup);
-  validate.enableValidation();
-};
+}
+// создать функцию валидации профиля
+const validateProfile = () => {
+  const validate = new FormValidator(config, profilePopup);
+  return validate.enableValidation();
+}
+//  создать функцию валидации карты
+const validateCard = () => {
+  const validate = new FormValidator(config, cardPopup);
+  return validate.enableValidation();
+}
+// создать функцию исправления ошибок при повторном открытии попапа
+const resetValid = (popup) => {
+  const validate = new FormValidator(config, popup);
+  return validate.resetValidation();
+}
 // вызвать функцию вывода карточек с заданным массивом 
-renderCards(constants.initialCards);
+renderCards(initialCards);
+// вызвать функцию валидации профайла
+validateProfile();
+// вызвать функцию валидации карты
+validateCard();
 // прослушивать форму отправки данных блока Profile
 profileForm.addEventListener('submit', submitProfileForm);
 // прослушивать событие отправки формы formElement
@@ -132,14 +146,14 @@ editBtn.addEventListener('click', () =>{
   inputName.value = fullName.textContent;
   inputJob.value = activity.textContent;
   openPopup(profilePopup);
-  // вызвать функцию валидации при открытии попапа
-  enableValidation(profilePopup);
+  resetValid(profilePopup);
+  
+ 
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {
   openPopup(cardPopup);
-  // вызвать функцию валидации при открытии попапа
-  enableValidation(cardPopup);
+  resetValid(cardPopup);
 });
 // перебираем попапы на странице
 popupList.forEach((popup) => {

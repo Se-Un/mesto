@@ -43,65 +43,66 @@ export class FormValidator {
   }
   // создать метод обработчик для установки валидации
   #setEventListener() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._input));
-    const buttonElement = this._formElement.querySelector(this._submitButton);
-    this.#toggleButtonState(inputList, buttonElement);
+    // создать классовые переменные
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._input));
+    this._buttonElement = this._formElement.querySelector(this._submitButton);
 
-    inputList.forEach((inputElement) => {
+    this.#toggleButtonState();
+
+   this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this.#isValid(inputElement);
-        this.#toggleButtonState(inputList, buttonElement);
+        this.#toggleButtonState();
       })
     })
   }
   // создать метод обработчик для проверки всех форм на странице
-  #invalidInput(inputList) {
-    return inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
+  #invalidInput() {
+    return this._inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
     })
   }
   //создать метод для активации кнопки сабмита
-  #disableBtnSubmit(buttonElement) {
+  #disableBtnSubmit() {
     //добавить сабмиту класс
-    buttonElement.classList.add(this._inactiveButton);
+    this._buttonElement.classList.add(this._inactiveButton);
     //добавить сабмиту атрибут
-    buttonElement.setAttribute('disabled', 'disabled');
+    this._buttonElement.setAttribute('disabled', 'disabled');
   }
   //создать метод для дизейбла кнопки сабмита
-  #enableBtnSubmit(buttonElement) {
+  #enableBtnSubmit() {
     //удалить класс
-    buttonElement.classList.remove(this._inactiveButton);
+    this._buttonElement.classList.remove(this._inactiveButton);
     //удалить атрибут
-    buttonElement.removeAttribute('disabled', 'disabled');
+    this._buttonElement.removeAttribute('disabled', 'disabled');
   }
   // создать метод обработчик для дизейбла кнопок
-  #toggleButtonState(inputList, buttonElement) {
+  #toggleButtonState() {
     // создать условную конструкцию, если есть невалидный инпут, то задизейблить кнопку
-    if(this.#invalidInput(inputList)) {
-      this.#disableBtnSubmit(buttonElement);
+    if(this.#invalidInput()) {
+      this.#disableBtnSubmit();
     }
     // если форма прошла валидацию, то активировать кнопку
     else {
-      this.#enableBtnSubmit(buttonElement);
+      this.#enableBtnSubmit();
     }
   };
-  // создать метод обработчик валидации всех форм
-  enableValidation() {
-    // получаем массив форм на странице
-    const formList = Array.from(document.querySelectorAll(this._form));
-    // проходим по массиву методом forEach 
-    formList.forEach((formElement) => {
-      // прослушиваем событие в форме на отправку формы 
-      formElement.addEventListener('submit', function (evt) {
-        // отменяем стандартные методы обработки формы 
-        evt.preventDefault();
-      });
-        // вызываем функцию для обработки форм
-        this.#setEventListener();
+  // создать метод очистки ошибок
+  resetValidation() {
+    this.#setEventListener();
+    this.#toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      
+      this.#hideInputError(inputElement);
     });
   }
+  // создать метод обработчик валидации всех форм
+  enableValidation() {
+        // вызываем функцию для обработки форм
+        this.#setEventListener();
+  }
+ 
 }
-
 
 
 
