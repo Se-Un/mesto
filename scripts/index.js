@@ -116,27 +116,14 @@ const closePopupByEsc = (evt) => {
           closePopup(document.querySelector('.popup_opened'));
         }
 }
-// создать функцию валидации профиля
-const validateProfile = () => {
-  const validate = new FormValidator(config, profilePopup);
-  return validate.enableValidation();
-}
-//  создать функцию валидации карты
-const validateCard = () => {
-  const validate = new FormValidator(config, cardPopup);
-  return validate.enableValidation();
-}
-// создать функцию исправления ошибок при повторном открытии попапа
-const resetValid = (popup) => {
-  const validate = new FormValidator(config, popup);
-  return validate.resetValidation();
-}
+// создать экземпляр класса валидации профиля
+const validateProfile = new FormValidator(config, profilePopup);
+validateProfile.enableValidation();
+//  создать экземпляр класса валидации карты
+const validateCard = new FormValidator(config, cardPopup);
+validateCard.enableValidation();
 // вызвать функцию вывода карточек с заданным массивом 
 renderCards(initialCards);
-// вызвать функцию валидации профайла
-validateProfile();
-// вызвать функцию валидации карты
-validateCard();
 // прослушивать форму отправки данных блока Profile
 profileForm.addEventListener('submit', submitProfileForm);
 // прослушивать событие отправки формы formElement
@@ -146,14 +133,14 @@ editBtn.addEventListener('click', () =>{
   inputName.value = fullName.textContent;
   inputJob.value = activity.textContent;
   openPopup(profilePopup);
-  resetValid(profilePopup);
+  validateProfile.resetValidation();
   
  
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {
   openPopup(cardPopup);
-  resetValid(cardPopup);
+  validateCard.resetValidation();
 });
 // перебираем попапы на странице
 popupList.forEach((popup) => {

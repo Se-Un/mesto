@@ -89,7 +89,6 @@ export class FormValidator {
   };
   // создать метод очистки ошибок
   resetValidation() {
-    this.#setEventListener();
     this.#toggleButtonState();
     this._inputList.forEach((inputElement) => {
       
