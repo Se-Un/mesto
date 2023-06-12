@@ -1,53 +1,28 @@
 'use strict'
 // импорт модулей
-import { initialCards } from './constants.js';
-import { config } from './constants.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-// получить элементы блока profile
-const fullName = document.querySelector('.profile__full-name');
-const activity = document.querySelector('.profile__description');
-const editBtn = document.querySelector('.profile__edit-button');
-const addBtn = document.querySelector('.profile__add-button');
-// получить элемент блока elements
-const elements = document.querySelector('.elements');
-// получить общие элементы popup
-const popupList = Array.from(document.querySelectorAll('.popup'));
-// получить элементы popup для изменения блока profile
-const profilePopup = document.querySelector('.popup-profile');
-const profileForm = document.forms['profile-form'];
-const inputName = profilePopup.querySelector('[name="name"]');
-const inputJob = profilePopup.querySelector('[name="job"]');
-// получить элементы popup для редактирования карточек фото
-const cardPopup = document.querySelector('.popup-element');
-const cardForm = document.forms['card-form'];
-const inputTitle = cardPopup.querySelector('[name="title"]');
-const inputLink = cardPopup.querySelector('[name="link"]');
-// получить элементы попапа увеличения картинки
-const popupScalePicture = document.querySelector('.popup-scale-picture');
-const imagePopup = popupScalePicture.querySelector('.popup__image');
-const captionPopup = popupScalePicture.querySelector('.popup__caption');
-// создать функцию создания и вывода карты на страницу
-const createCard = (item) => {
-  const card = new Card(item, openImagePopup, '.element-template');
-  return card.generateCard();
-}
-// создать функцию добавления карточек из исходного массива по порядку массива 
-const appendCard = (element) => {
-  // использовать метод append 
-  elements.append(element);
-}
-// создать функцию добавления карточки при отправке формы в начало блока 
-const prependCard = (element) => {
-  // использовать метод prepend 
-  elements.prepend(element);
-}
-// создать функцию для вывода карточек из первоначального массива 
-const renderCards = (array) => {
-  array.forEach((item) => {
-   appendCard(createCard(item));
- })
-}
+import { fullName, 
+  activity, 
+  editBtn, 
+  addBtn, 
+  elements, 
+  popupList,
+  profilePopup, 
+  profileForm, 
+  inputName, 
+  inputJob, 
+  cardPopup, 
+  cardForm,
+  inputTitle,
+  inputLink,
+  popupScalePicture,
+  imagePopup,
+  captionPopup,
+  initialCards,
+  config
+ } from './utils/constants.js';
+import  Card  from './components/Card.js';
+import  FormValidator  from './components/FormValidator.js';
+import  Section  from './components/Section.js';
 // создать функцию увеличения картинки
 const openImagePopup = (name, link) => {
   // подставить значение в атрибут src 
@@ -58,6 +33,22 @@ const openImagePopup = (name, link) => {
   captionPopup.textContent = name;
   // использовать функцию открытия попапа 
   openPopup(popupScalePicture)
+}
+// сгенерировать первоначальные карточки
+const rendererCards = new Section({ items: initialCards,
+renderer: (item) => {
+  const card = new Card(item, openImagePopup, '.element-template');
+  const cardElement = card.generateCard();
+  rendererCards.addItem(cardElement);
+}
+},
+elements);
+rendererCards.renderItems();
+// создать функцию добавления карточки пользователем
+const createCard = (items) => {
+  const createCard = new Card(items, openImagePopup, '.element-template')
+  const newCardElement = createCard.generateCard();
+  rendererCards.addPrependItem(newCardElement);
 }
 //создать функцию открытия попапов
 const openPopup = (popup) => {
@@ -90,8 +81,7 @@ const submitCardForm = (evt) => {
   // создать константы в которых будут хранится значения полей из input 
   const name = inputTitle.value;
   const link = inputLink.value;
-  // использовать функции добавления карточки в начало и создания функции 
-  prependCard(createCard({name, link}));
+  createCard({ name, link });
   //использовать функцию закрытия popup 
   closePopup(cardPopup);
   cardForm.reset();
@@ -123,7 +113,7 @@ validateProfile.enableValidation();
 const validateCard = new FormValidator(config, cardPopup);
 validateCard.enableValidation();
 // вызвать функцию вывода карточек с заданным массивом 
-renderCards(initialCards);
+//renderCards(initialCards);
 // прослушивать форму отправки данных блока Profile
 profileForm.addEventListener('submit', submitProfileForm);
 // прослушивать событие отправки формы formElement
@@ -134,8 +124,6 @@ editBtn.addEventListener('click', () =>{
   inputJob.value = activity.textContent;
   openPopup(profilePopup);
   validateProfile.resetValidation();
-  
- 
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {
