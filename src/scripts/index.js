@@ -22,6 +22,7 @@ import UserInfo from './components/UserInfo.js';
 // объявить экземпляры класса Popup для открытия и закрытия попапов на странице
 const profileStatePopup = new Popup(profilePopup);
 const cardStatePopup = new Popup(cardPopup);
+const photoStatePopup =new Popup(popupScalePicture);
 // создать экземпляры класса валидации
 const validateProfile = new FormValidator(config, profilePopup);
 const validateCard = new FormValidator(config, cardPopup);
@@ -35,6 +36,7 @@ const createCard = (item) => {
 // создать функцию увеличения картинки
 const openImagePopup = (name, link) => {
  const image = new PopupWithImage({name, link}, popupScalePicture);
+ photoStatePopup.setEventListeners();
  return image.openPhoto();
 } 
 // сгенерировать первоначальные карточки
