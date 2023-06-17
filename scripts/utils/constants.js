@@ -52,7 +52,7 @@ const inputJob = profilePopup.querySelector('[name="job"]');
 // получить элементы popup для редактирования карточек фото
 const cardPopup = document.querySelector('.popup-element');
 const cardForm = document.forms['card-form'];
-const inputTitle = cardPopup.querySelector('[name="title"]');
+const inputTitle = cardPopup.querySelector('[name="name"]');
 const inputLink = cardPopup.querySelector('[name="link"]');
 // получить элементы попапа увеличения картинки
 const popupScalePicture = document.querySelector('.popup-scale-picture');
