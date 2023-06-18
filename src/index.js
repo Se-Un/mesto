@@ -1,5 +1,6 @@
 'use strict'
 // импорт модулей
+import './pages/index.css';
 import {
   editBtn, 
   addBtn, 
@@ -11,14 +12,16 @@ import {
   popupScalePicture,
   initialCards,
   config
- } from './utils/constants.js';
-import  Card  from './components/Card.js';
-import  FormValidator  from './components/FormValidator.js';
-import  Section  from './components/Section.js';
-import Popup from './components/Popup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+ } from './scripts/utils/constants.js';
+import  Card  from './scripts/components/Card.js';
+import  FormValidator  from './scripts/components/FormValidator.js';
+import  Section  from './scripts/components/Section.js';
+import Popup from './scripts/components/Popup.js';
+import PopupWithImage from './scripts/components/PopupWithImage.js';
+import PopupWithForm from './scripts/components/PopupWithForm.js';
+import UserInfo from './scripts/components/UserInfo.js';
+
+
 // объявить экземпляры класса Popup для открытия и закрытия попапов на странице
 const profileStatePopup = new Popup(profilePopup);
 const cardStatePopup = new Popup(cardPopup);

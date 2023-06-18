@@ -8,8 +8,7 @@
     <meta name="description" content="Сайт, пет-проект для практики: html, css, js">
     <meta name="author" content="Kim Se-Un">
     <!--link-->
-    <link rel="shortcut icon" href="images/logo/favicon.ico">
-    <link rel="stylesheet" href="pages/index.css">
+    <link rel="shortcut icon" href="./images/logo/favicon.ico">
     <!--title-->
     <title>Mesto</title>
   </head>
@@ -19,7 +18,7 @@
     <div class="page">
 
       <header class="header">
-        <img class="header__logo" src="images/logo/logo.svg" alt="логотип отошёл на 5 минут">
+        <img class="header__logo" src="<%=require('./images/logo/logo.svg')%>" alt="логотип отошёл на 5 минут">
       </header>
       
       <main class="main">
@@ -28,7 +27,7 @@
 
           <div class="profile__content">
 
-            <img class="profile__avatar" src="images/image.jpg" alt="тут должно быть ваше изображение">
+            <img class="profile__avatar" src="<%=require('./images/image.jpg')%>" alt="тут должно быть ваше изображение">
 
             <div class="profile__info">
 
@@ -151,8 +150,5 @@
 
     </div>
 
-    <script src="scripts/index.js" type="module"></script>
-    <!--<script src="scripts/Card.js" type="module"></script>-->
-    <!--<script src="scripts/FormValidator.js" type="module"></script>-->
   </body>
 </html>
