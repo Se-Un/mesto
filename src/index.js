@@ -20,8 +20,6 @@ import Popup from './scripts/components/Popup.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 import UserInfo from './scripts/components/UserInfo.js';
-
-
 // объявить экземпляры класса Popup для открытия и закрытия попапов на странице
 const profileStatePopup = new Popup(profilePopup);
 const cardStatePopup = new Popup(cardPopup);
