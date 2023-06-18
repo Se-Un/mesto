@@ -1,20 +1,19 @@
 'use strict'
-import { fullName, activity, inputName, inputJob } from "../utils/constants.js";
 // создать класс
 export default class UserInfo {
-  constructor(obj) {
-    this._name = obj.name;
-    this._job = obj.job;
+  constructor({ userNameSelector, userDescriptionSelector }) {
+    this._userNameElement = document.querySelector(`.${userNameSelector}`);
+    this._userDescriptionElement = document.querySelector(`.${userDescriptionSelector}`);
 
   }
-  getUserInfo() {
+  getUserInfo({userName, userDescription}) {
    return {
-    name: inputName.value = fullName.textContent,
-    job: inputJob.value = activity.textContent
+    userName: userName.value = this._userNameElement.textContent,
+    userDescription: userDescription.value = this._userDescriptionElement.textContent
    }
   }
-  setUserInfo() {
-    fullName.textContent = this._name;
-    activity.textContent = this._job;
+  setUserInfo({userName, userDescription}) {
+    this._userNameElement.textContent = userName;
+    this._userDescriptionElement.textContent = userDescription;
   }
 }
