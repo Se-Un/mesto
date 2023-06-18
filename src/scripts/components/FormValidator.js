@@ -1,6 +1,6 @@
 'use strict'
 // создать класс валидации 
-export class FormValidator {
+export default class FormValidator {
   // создать конструктор со свойствами класса
   constructor(object, formElement) {
     this._form = object.formSelector;

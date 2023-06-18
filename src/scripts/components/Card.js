@@ -1,6 +1,6 @@
 'use strict'
 // создать класс карточки
-export class Card {
+export default class Card {
   // создать конструктор класса с необходимыми свойствами
   constructor(object, openImagePopup, templateSelector) {
     this._name = object.name;
