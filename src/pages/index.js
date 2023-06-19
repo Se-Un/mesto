@@ -27,10 +27,6 @@ const userDescription = profilePopup.querySelector('[name="userDescription"]');
 const cardPopup = document.querySelector('.popup-element');
 // получить элементы попапа увеличения картинки
 const popupScalePicture = document.querySelector('.popup-scale-picture');
-const imagePopup = popupScalePicture.querySelector('.popup__image');
-const captionPopup = popupScalePicture.querySelector('.popup__caption');
-// экспорт
-export { imagePopup, captionPopup }
 // объявить класс данных пользователя
 const userInfo = new UserInfo({userNameSelector, userDescriptionSelector});
 // объявить класс увеличения фото
@@ -85,10 +81,10 @@ rendererCards.renderItems(initialCards);
 // прослушивать события для открытия попапа Profile
 editBtn.addEventListener('click', () => {
   profile.open();
-  userInfo.getUserInfo({userName, userDescription});
-  
+  const currentUserInfo = userInfo.getUserInfo();
+  userName.value = currentUserInfo.userName;
+  userDescription.value = currentUserInfo.userDescription;
   validateProfile.resetValidation();
-  
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {

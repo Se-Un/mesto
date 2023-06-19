@@ -6,10 +6,10 @@ export default class UserInfo {
     this._userDescriptionElement = document.querySelector(`.${userDescriptionSelector}`);
 
   }
-  getUserInfo({userName, userDescription}) {
+  getUserInfo() {
    return {
-    userName: userName.value = this._userNameElement.textContent,
-    userDescription: userDescription.value = this._userDescriptionElement.textContent
+    userName: this._userNameElement.textContent,
+    userDescription: this._userDescriptionElement.textContent
    }
   }
   setUserInfo({userName, userDescription}) {
