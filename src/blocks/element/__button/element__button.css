@@ -1,14 +1,14 @@
 .element__button {
   width: 22px;
   height: 19px;
-  margin: 5px 5px 0 0;
+  margin: 1px 1px 0 0;
   padding: 0;
   border: none;
   background-color: #ffffff;
   background-image: url(../../../images/logo/Group.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .element__button:hover {

@@ -27,13 +27,13 @@
 
           <div class="profile__content">
 
-            <img class="profile__avatar" src="<%=require('./images/image.jpg')%>" alt="тут должно быть ваше изображение">
+            <img class="profile__avatar" src="" alt="тут должно быть ваше изображение">
 
             <div class="profile__info">
 
-              <h1 class="profile__full-name">Жак-Ив Кусто</h1>
+              <h1 class="profile__full-name"></h1>
 
-              <p class="profile__description">Исследователь океана</p>
+              <p class="profile__description"></p>
 
               <button class="profile__edit-button" name="edit-button" type="button" aria-label="Редактировать">
               </button>
@@ -62,13 +62,13 @@
 
                 <h2 class="popup__title">Редактировать профиль</h2>
                 
-                  <input class="popup__input" id="userName" name="userName" type="text" placeholder="Введите Ваше имя" minlength = "2" maxlength="40" required autocomplete="on">
+                  <input class="popup__input" id="name" name="name" type="text" placeholder="Введите Ваше имя" minlength = "2" maxlength="40" required autocomplete="on">
                   
-                  <label class="popup__input-error userName-error" for="userName"></label>
+                  <label class="popup__input-error name-error" for="name"></label>
   
-                  <input class="popup__input" id="userDescription" name="userDescription" type="text" placeholder="Укажите Вашу деятельность" minlength="2" maxlength="200" required>
+                  <input class="popup__input" id="description" name="description" type="text" placeholder="Укажите Вашу деятельность" minlength="2" maxlength="200" required>
 
-                  <label class="popup__input-error userDescription-error" for="userDescription"></label>
+                  <label class="popup__input-error description-error" for="description"></label>
     
                 <button class="popup__submit submit-profile" name="submit" type="submit">Сохранить</button>
               
@@ -122,6 +122,21 @@
           </div>
         </div>
 
+        <div class="popup popup-deleteCard">
+
+          <div class="popup__container">
+
+            <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть"></button>
+
+            <form form class="popup__form popup__form_delete_height" name="card-form" action="blocks/popup/popup.js" method="get" novalidate>
+
+              <h2 class="popup__title">Вы уверены?</h2>
+              
+              <button class="popup__submit popup__submit_delete_margin" name="submit" type="submit">Да</button>
+            </form>
+          </div>
+        </div>
+
         <template class="element-template" id="element-template">
 
           <article class="element">
@@ -133,8 +148,12 @@
             <div class="element__content">
     
               <h2 class="element__title"></h2>
-              <button class="element__button" name="like-btn" type="button" aria-label="Нравится">
-              </button>
+              <div class="element__likeBtn">
+                <button class="element__button" name="like-btn" type="button" aria-label="Нравится">
+                </button>
+                <div class="element__counter-like"></div>
+              </div>
+              
     
             </div>
     

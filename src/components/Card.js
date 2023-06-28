@@ -5,6 +5,7 @@ export default class Card {
   constructor(object, openImagePopup, templateSelector) {
     this._name = object.name;
     this._link = object.link;
+    this._likes = object.likes;
     this._openImagePopup = openImagePopup;
     this._templateSelector = templateSelector;
   }
@@ -18,30 +19,34 @@ export default class Card {
 
     return cardElement;
   }
-  // создать метод удаления карточки
-  #deleteCard()  {
-    this._element.remove();
-    this._element = null;
-  }
+ 
   // создать метод изменения класса кнопки лайка
   #toggleLike() {
     // менять класс кнопки при нажатии, метод toggle
     this._likeBtn.classList.toggle('element__button_active');
   }
+  // создать метод для показа кол-ва лайков
+  #showCounterLike() {
+    // создать условие чтобы не отображать нули
+    if(this._likes.length != 0) {
+      this._counterLikes.textContent = this._likes.length;
+    }
+  }
   // создать метод прослушивания событий в карточке
   #setEventListeners() {
     // прослушивать события по кнопке удалить
     this._deleteBtn.addEventListener('click', () => {
-      this.#deleteCard();
+      deleteCard.open();
     });
     // прослушивать события кнопки "нравится" 
     this._likeBtn.addEventListener('click', () => {
-      this.#toggleLike();
+      this.#toggleLike(); 
     });
     // прослушивать событя при клике на картинку 
     this._cardImage.addEventListener('click', () => {
       this._openImagePopup(this._name, this._link);
     })
+    this.#showCounterLike();
   }
   // создать функцию воспроизведения карты со всеми методами
   generateCard() {
@@ -51,7 +56,8 @@ export default class Card {
     this._likeBtn = this._element.querySelector('.element__button');
     this._cardImage = this._element.querySelector('.element__image');
     this._cardTitle = this._element.querySelector('.element__title');
-
+    this._counterLikes = this._element.querySelector('.element__counter-like');
+   
     this.#setEventListeners();
 
     this._cardTitle.textContent = this._name;
