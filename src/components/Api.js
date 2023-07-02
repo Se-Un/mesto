@@ -32,22 +32,50 @@ export default class Api {
   }
   // метод добавления информации о пользователе на сервер
   patchDataUser(data) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.description,
+        about: data.about,
       }),
     }).then(this.#response);
   }
   // создать метод создания карты на сервере
   postDataCards(data) {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
     }).then(this.#response);
   }
+  // создать метод удаления карты на сервере
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+        method: "DELETE",
+        headers: this._headers,
+    }).then(this.#response);
+  }
+  // создать метод лайка карточки
+  likeState(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        method: "PUT",
+        headers: this._headers,
+    }).then(this.#response);
+  }
+  // создать метод дизлайка карточки
+  dislikeState(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        method: "DELETE",
+        headers: this._headers,
+    }).then(this.#response);
+  }
+  // создать метод изменения аватара
+  changeAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify(data),
+    }).then(this._response);
+  }
 }
-

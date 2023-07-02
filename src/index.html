@@ -27,7 +27,9 @@
 
           <div class="profile__content">
 
-            <img class="profile__avatar" src="" alt="тут должно быть ваше изображение">
+            <div class="profile__avatar">
+              <img class="profile__avatar-image" src="#" alt="тут должно быть ваше изображение">
+            </div>
 
             <div class="profile__info">
 
@@ -58,7 +60,7 @@
             <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть">
             </button>
 
-            <form class="popup__form" name="profile-form" action="blocks/popup/popup.js" method="get" novalidate>
+            <form class="popup__form" name="profile-form" action="blocks/popup/popup.js" method="patch" novalidate>
 
                 <h2 class="popup__title">Редактировать профиль</h2>
                 
@@ -66,9 +68,9 @@
                   
                   <label class="popup__input-error name-error" for="name"></label>
   
-                  <input class="popup__input" id="description" name="description" type="text" placeholder="Укажите Вашу деятельность" minlength="2" maxlength="200" required>
+                  <input class="popup__input" id="about" name="about" type="text" placeholder="Укажите Вашу деятельность" minlength="2" maxlength="200" required>
 
-                  <label class="popup__input-error description-error" for="description"></label>
+                  <label class="popup__input-error about-error" for="about"></label>
     
                 <button class="popup__submit submit-profile" name="submit" type="submit">Сохранить</button>
               
@@ -85,7 +87,7 @@
             <button class="popup__button-close" name="button" type="button" aria-label="Закрыть">
             </button>
   
-            <form class="popup__form" name="card-form" action="blocks/popup/popup.js" method="get" novalidate>
+            <form class="popup__form" name="card-form" action="blocks/popup/popup.js" method="post" novalidate>
 
                 <h2 class="popup__title">Новое место</h2>
 
@@ -128,11 +130,31 @@
 
             <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть"></button>
 
-            <form form class="popup__form popup__form_delete_height" name="card-form" action="blocks/popup/popup.js" method="get" novalidate>
+            <form form class="popup__form popup__form_delete_height" name="delete-form" action="blocks/popup/popup.js" method="delete" novalidate>
 
               <h2 class="popup__title">Вы уверены?</h2>
               
               <button class="popup__submit popup__submit_delete_margin" name="submit" type="submit">Да</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="popup popup-changeAvatar">
+
+          <div class="popup__container">
+
+            <button class="popup__button-close" name="button-close" type="button" aria-label="Закрыть"></button>
+
+            <form form class="popup__form popup__form_avatar_height" name="avatar-form" action="blocks/popup/popup.js" method="patch" novalidate>
+
+              <h2 class="popup__title">Обновить аватар</h2>
+
+              <input class="popup__input popup__input_avatar_margin" id="avatar-input" name="avatar" type="url" placeholder="Ссылка на изображение" required>
+
+              <label class="popup__input-error avatar-input-error" for="avatar-input"></label>
+              
+              <button class="popup__submit submit-avatar popup__submit_margin_top" name="submit" type="submit">Сохранить</button>
+
             </form>
           </div>
         </div>

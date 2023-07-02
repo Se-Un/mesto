@@ -9,110 +9,176 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import ConfirmPopupForm from '../components/ConfirmPopupForm.js';
 import { data } from 'autoprefixer';
 // получить элементы блока profile
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
+const changeBtn = document.querySelector('.profile__avatar')
 // получить элемент блока elements
 const elements = document.querySelector('.elements');
 // получить элементы popup для изменения блока profile
 const profilePopup = document.querySelector('.popup-profile');
 const name = profilePopup.querySelector('[name="name"]');
-const description = profilePopup.querySelector('[name="description"]');
+const about = profilePopup.querySelector('[name="about"]');
 // получить элементы popup для редактирования карточек фото
 const cardPopup = document.querySelector('.popup-element');
 // получить элементы попапа увеличения картинки
 const popupScalePicture = document.querySelector('.popup-scale-picture');
 // получить элементы попапа Удаления карточки
 const popupDeleteCard = document.querySelector('.popup-deleteCard');
+// получить элемент попапа изменения аватара
+const popupChangeAvatar = document.querySelector('.popup-changeAvatar');
+// создать переменную для хранения id пользователя
+let myId;
 // объявление классов
+// объявить экземпляр класса
+const profile = new PopupWithForm(profilePopup, submitProfileForm);
+const cards = new PopupWithForm(cardPopup, submitCardForm);
+const image = new PopupWithImage(popupScalePicture);
+const avatar = new  PopupWithForm(popupChangeAvatar, submitAvatarForm);
+// создать экземпляры класса валидации
+const validateProfile = new FormValidator(config, profilePopup);
+const validateCard = new FormValidator(config, cardPopup);
+const validateAvatar = new FormValidator(config, popupChangeAvatar);
 // объявить класс данных пользователя
 const userInfo = new UserInfo({
   nameSelector: '.profile__full-name', 
   descriptionSelector: '.profile__description', 
-  avatarSelector: '.profile__avatar'});
-// объявить класс увеличения фото
-const image = new PopupWithImage(popupScalePicture);
-// объявить экземпляр класса PopupWithForm для блока Profile
-const profile = new PopupWithForm(profilePopup, popupSubmitForm);
+  avatarSelector: '.profile__avatar-image'
+});
+// сгенерировать первоначальные карточки
+const rendererCards = new Section({
+  renderer: (data) => {
+    rendererCards.addItem(createCard(data));
+  }
+},
+elements);
+// создать функцию увеличения картинки
+function openImagePopup(name, link)  {
+  return image.openPhoto(name, link);
+} 
+// создать функцию создания и отображения карточки на странице
+function createCard(data) {
+  const card = new Card({
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      myId,
+      idOwner: data.owner._id,
+      id: data._id
+  },
+    openImagePopup,
+    '#element-template',
+    async () => {
+          try {
+              const res = await api.likeState(data._id);
+              card.likeState();
+              card.showCounterLike(res);
+          } catch (err) {
+              console.log(err);
+          }
+      },
+      async () => {
+          try {
+              const res = await api.dislikeState(data._id);
+              card.dislikeState();
+              card.showCounterLike(res);
+          } catch (err) {
+              console.log(err);
+          }
+      },
+      () => {
+          confirmPopupForm.open(card);
+      }
+  );
 
-async function popupSubmitForm(data) {
+  return card.generateCard();
+}
+// создать функцию отправки данных на сервер Profile
+async function submitProfileForm(data) {
+  profile.loading(true, 'Сохранение...');
   try {
-    console.log(data);
-    await api.patchDataUser(data);
-    userInfo.setUserInfo(data);
+    const res = await api.patchDataUser(data);
+    userInfo.setUserInfo(res);
     profile.close();
   }
   catch(err) {
     console.log(err);
   }
-
-}
-// объявить экземпляр класса PopupWithForm для создания карточки фото
-const card = new PopupWithForm(cardPopup, submitCardForm);
-
-async function submitCardForm(data) {
-  try {
-    rendererCards.addPrependItem(createCard(data));
-    await api.postDataCards(data);
-    card.close();
+  finally {
+    profile.loading(false);
   }
-  catch(err) {
+}
+// создать функцию отправки данных на сервер Card
+async function submitCardForm(data) {
+  cards.loading(true, 'Сохранение...');
+  try {
+    const res = await api.postDataCards(data);
+    const card = createCard(res);
+    rendererCards.addPrependItem(card);
+    cards.close();
+  } 
+  catch (err) {
     console.log(err);
   }
+  finally {
+    cards.loading(false);
+  }
 }
-
-
-// объявить экземпляр класса
-const deleteCard = new PopupWithForm(popupDeleteCard, {
-  handleFormSubmit: () => {
-    deleteCard.close();
+// создать функцию открытия попапа и удаления карточки
+const confirmPopupForm = new ConfirmPopupForm(popupDeleteCard, async (card) => {
+  try {
+      await api.deleteCard(card._id);
+      card.deleteElement();
+      confirmPopupForm.close();
+  } catch (err) {
+      console.log(err);
   }
 })
-// создать экземпляры класса валидации
-const validateProfile = new FormValidator(config, profilePopup);
-const validateCard = new FormValidator(config, cardPopup);
-
-
-
-// создать функцию генерации карточек 
-const createCard = (item) => {
-  const createCard = new Card(item, openImagePopup, '.element-template');
-  return createCard.generateCard();
+// создать функцию отправки данных на сервер Avatar
+async function submitAvatarForm(data) {
+  avatar.loading(true, 'Сохранение...');
+  try {
+    await api.changeAvatar(data);
+    userInfo.setAvatar(data);
+    avatar.close();
+  } catch (err) {
+    console.log(err);
+  }
+  finally {
+    avatar.loading(false);
+  }
 }
-// создать функцию увеличения картинки
-const openImagePopup = (name, link) => {
- return image.openPhoto({name, link});
-} 
-// сгенерировать первоначальные карточки
-export const rendererCards = new Section({
-renderer: (item) => {
-  rendererCards.addItem(createCard(item));
-}
-},
-elements);
-// объявить методы генерации сабмита
-image.setEventListeners();
+// объявить методы для закрытия попапов
 profile.setEventListeners();
-card.setEventListeners();
-deleteCard.setEventListeners();
+cards.setEventListeners();
+confirmPopupForm.setEventListeners();
+avatar.setEventListeners();
+image.setEventListeners();
 // объявить методы валидации попапов
 validateProfile.enableValidation();
 validateCard.enableValidation();
+validateAvatar.enableValidation();
 // прослушивать события для открытия попапа Profile
 editBtn.addEventListener('click', () => {
   profile.open();
   const currentUserInfo = userInfo.getUserInfo();
   name.value = currentUserInfo.name;
-  description.value = currentUserInfo.description;
+  about.value = currentUserInfo.about;
   validateProfile.resetValidation();
 });
  // прослушивать событие для открытия попапа Element
 addBtn.addEventListener('click', () => {
-  card.open();
+  cards.open();
   validateCard.resetValidation();
 });
-
+// прослушивать событие для открытие попапа Avatar
+changeBtn.addEventListener('click', () => {
+  avatar.open();
+  validateAvatar.resetValidation();
+})
+// получить данные api с сервера
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-69",
   headers: {
@@ -120,14 +186,11 @@ const api = new Api({
       "Content-Type": "application/json",
   }
 });
-
-let userId;
-
+// обявить промис ол для использования данных карт и пользователя
 Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardData]) => {
-          userId = userData._id;
+          myId = userData._id;
           userInfo.setUserInfo(userData);
           rendererCards.renderItems(cardData);
       })
       .catch((err) => console.log(err));
-  

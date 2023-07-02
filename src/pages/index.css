@@ -14,6 +14,7 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__content/profile__content.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar-image/profile__avatar-image.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__full-name/profile__full-name.css);
 @import url(../blocks/profile/__description/profile__description.css);
@@ -55,4 +56,7 @@
 @import url(../blocks/popup/__input/_validity_invalid/popup__input_validity_invalid.css);
 @import url(../blocks/popup/__submit/_delete_margin/popup__submit_delete_margin.css);
 @import url(../blocks/popup/__form/_delete_height/popup__form_delete_height.css);
+@import url(../blocks/popup/__input/_avatar_margin/popup__input_avatar_margin.css);
+@import url(../blocks/popup/__submit/_margin_top/popup__submit_margin_top.css);
+@import url(../blocks/popup/__form/_avatar_height/popup__form_avatar_height.css);
 /*подключить стили к popup*/

@@ -10,7 +10,6 @@ export default class FormValidator {
     this._inputError = object.inputErrorClass;
     this._error = object.errorClass;
     this._formElement = formElement;
-   
   }
   // создать метод вывода ошибки
   #showInputError(inputElement, errorMessage) {
@@ -100,10 +99,4 @@ export default class FormValidator {
         // вызываем функцию для обработки форм
         this.#setEventListener();
   }
- 
 }
-
-
-
-
-
